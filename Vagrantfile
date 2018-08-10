@@ -33,6 +33,7 @@ servers = {
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "bento/ubuntu-18.04"
+    config.vm.box_version = "201807.12.0"
 
     servers.each do |hostname, settings|
         config.vm.define hostname do |host|
