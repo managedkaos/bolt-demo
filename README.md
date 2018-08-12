@@ -16,9 +16,9 @@ This demo focuses on running commands and scripts on Ubuntu servers via SSH.
 
 # Run a command on the target servers; connect via username and password
 
-    bolt --user vagrant --password --nodes 192.168.56.101 --no-host-key-check command run 'hostname'
+    bolt --user vagrant --password --nodes 192.168.56.101 --no-host-key-check command run 'hostname && uptime'
 
-    bolt --user vagrant --password --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname'
+    bolt --user vagrant --password --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname && uptime'
 
 # Create key pair and add public key to the authorized_users file on each target
 
@@ -30,7 +30,7 @@ This demo focuses on running commands and scripts on Ubuntu servers via SSH.
 
 # Run bolt with the key instead of a password
 
-     bolt --private-key ./vagrant.key --user vagrant --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname'
+     bolt --private-key ./vagrant.key --user vagrant --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname && uptime'
 
 # Create an inventory file with groups and configuration
 
