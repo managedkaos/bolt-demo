@@ -7,6 +7,8 @@ This demo focuses on running commands and scripts on Ubuntu servers via SSH.
 # Install Bolt
 
     gem install bolt
+    which bolt
+    bolt --version
 
 # Start the target servers
 
