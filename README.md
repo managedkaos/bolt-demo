@@ -1,5 +1,9 @@
 # Bolt Demo
 
+Bolt is a Ruby command-line tool for executing commands, scripts, and tasks on remote systems using SSH and WinRM.
+
+This demo focuses on running commands and scripts on Ubuntu servers via SSH.
+
 # Install Bolt
 
     gem install bolt
