@@ -28,9 +28,30 @@ This demo focuses on running commands and scripts on Ubuntu servers via SSH.
         sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./vagrant.key vagrant@192.168.56.10${i};
     done
 
-# Now run bolt commands with the key instead of a password
+# Now run bolt with the key instead of a password
 
      bolt --private-key ./vagrant.key --user vagrant --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname'
+
+# Create an inventory file with groups and configuration
+
+     vim inventory.yml
+
+```
+    groups:
+      - name: targets
+        nodes:
+          - 192.168.56.101
+          - 192.168.56.102
+          - 192.168.56.103
+        config:
+          ssh:
+            user: vagrant
+            private-key: ./vagrant.key
+            host-key-check: false
+```
+# Run bolt with inventory file
+
+    bolt --inventoryfile ./inventory.yml --nodes targets command run 'hostname && uptime'
 
 # Bounty for Helping Improve Bolt
 
