@@ -1,0 +1,11 @@
+groups:
+  - name: targets
+    nodes:
+      - 192.168.56.101
+      - 192.168.56.102
+      - 192.168.56.103
+    config:
+      ssh:
+        user: vagrant
+        private-key: ./vagrant.key
+        host-key-check: false
