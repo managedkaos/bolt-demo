@@ -16,11 +16,15 @@
 
 # Create key pair and add public key to the authorized_users file on each target
 
-     /usr/bin/ssh-keygen -C vagrant -N "" -f ./vagrant.key
+    /usr/bin/ssh-keygen -C vagrant -N "" -f ./vagrant.key
 
-     for i in {1..3}; do
+    for i in {1..3}; do
         sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./vagrant.key vagrant@192.168.56.10${i};
     done
+
+# Now run bolt commands with the key instead of a password
+
+     bolt --private-key ./vagrant.key --user vagrant --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname'
 
 # Bounty for Helping Improve Bolt
 
