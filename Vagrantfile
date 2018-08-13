@@ -13,7 +13,7 @@ servers = {
     },
 
     'target02'    => {
-        name:'Target Server 2',
+        name:'Target Server 02',
         cpus:'1',
         guest_port:'80',
         host_port:'18082',
@@ -22,7 +22,7 @@ servers = {
     },
 
     'target03'    => {
-        name:'Target Server 3',
+        name:'Target Server 03',
         cpus:'1',
         guest_port:'80',
         host_port:'18083',
