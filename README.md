@@ -4,7 +4,11 @@ Bolt is a Ruby command-line tool for executing commands, scripts, and tasks on r
 
 This demo focuses on running commands and scripts on Ubuntu servers via SSH.
 
-*Your system needs to have <a href="https://www.virtualbox.org/" target="_blank">Virtualbox</a> and <a href="https://www.vagrantup.com/" target="_blank">Vagrant</a> installed before proceeding with the demo.*
+Your system needs to have the following software installed:
+
+- <a href="https://www.virtualbox.org/" target="_blank">Virtualbox</a>
+- <a href="https://www.vagrantup.com/" target="_blank">Vagrant</a>
+- <a href="https://www.ruby-lang.org/" target="_blank">Ruby Gem</a>
 
 # Install Bolt
 
