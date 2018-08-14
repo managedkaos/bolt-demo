@@ -6,9 +6,10 @@ This demo focuses on running commands and scripts on Ubuntu servers using Bolt a
 
 Your system needs to have the following software installed:
 
-- <a href="https://www.virtualbox.org/" target="_blank">Virtualbox</a>
-- <a href="https://www.vagrantup.com/" target="_blank">Vagrant</a>
-- <a href="https://www.ruby-lang.org/" target="_blank">Ruby Gem</a>
+- <a href="https://www.virtualbox.org/">Virtualbox</a>
+- <a href="https://www.vagrantup.com/">Vagrant</a>
+- <a href="https://www.ruby-lang.org/">Ruby Gem</a>
+- <a href="https://gist.github.com/arunoda/7790979">SSH Pass</a> (Optional; For SSH Key injection)
 
 # Install Bolt
 
