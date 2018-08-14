@@ -2,7 +2,7 @@
 
 Bolt is a Ruby command-line tool for executing commands, scripts, and tasks on remote systems using SSH and WinRM.
 
-This demo focuses on running commands and scripts on Ubuntu servers via SSH.
+This demo focuses on running commands and scripts on Ubuntu servers using Bolt and SSH.  The demo environment is assumed to be a Bash Shell.
 
 Your system needs to have the following software installed:
 
