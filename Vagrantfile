@@ -46,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 v.cpus   = settings[:cpus]
                 v.name   = settings[:name]
             end
-            host.vm.provision "shell", path: "provision_nginx.sh"
+            host.vm.provision "shell", path: "provision_apache2.sh"
         end
     end
 end
