@@ -45,7 +45,7 @@ Your system needs to have the following software installed:
 
 ```
 groups:
-  - name: targets
+  - name: webservers
     nodes:
       - 192.168.56.101
       - 192.168.56.102
@@ -58,7 +58,7 @@ groups:
 ```
 # Run bolt with inventory file
 
-    bolt --inventoryfile ./inventory.yml --nodes targets command run 'hostname && uptime'
+    bolt --inventoryfile ./inventory.yml --nodes webservers command run 'hostname && uptime'
 
 # Bounty for Helping Improve Bolt
 
