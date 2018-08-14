@@ -3,8 +3,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 servers = {
-    'target01' => {
-        name:'Target Server 01',
+    'webserver01' => {
+        name:'Web Server 01',
         cpus:'1',
         guest_port:'80',
         host_port:'18081',
@@ -12,8 +12,8 @@ servers = {
         memory:'1024'
     },
 
-    'target02'    => {
-        name:'Target Server 02',
+    'webserver02'    => {
+        name:'Web Server 02',
         cpus:'1',
         guest_port:'80',
         host_port:'18082',
@@ -21,8 +21,8 @@ servers = {
         memory:'1024'
     },
 
-    'target03'    => {
-        name:'Target Server 03',
+    'webserver03'    => {
+        name:'Web Server 03',
         cpus:'1',
         guest_port:'80',
         host_port:'18083',
