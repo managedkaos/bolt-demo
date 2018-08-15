@@ -2,7 +2,7 @@
 apt-get update
 
 # Uninstall nginx
-systemctl stop nginx
+systemctl stop nginx || true
 apt-get -y remove nginx
 
 # Install apache2
