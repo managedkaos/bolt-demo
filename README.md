@@ -23,7 +23,7 @@ Your system needs to have the following software installed:
 
 # Run a command on the target servers; connect via username and password
 
-    bolt --user vagrant --password --nodes 192.168.56.101 --no-host-key-check command run 'hostname && uptime'
+    bolt --user vagrant --password --nodes 192.168.56.101 --no-host-key-check command run hostnamectl
 
     bolt --user vagrant --password --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname && uptime'
 
@@ -37,7 +37,7 @@ Your system needs to have the following software installed:
 
 # Run bolt with the key instead of a password
 
-     bolt --private-key ./vagrant.key --user vagrant --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname && uptime'
+     bolt --private-key ./vagrant.key --user vagrant --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run uptime
 
 # Create an inventory file with groups and configuration
 
@@ -58,7 +58,7 @@ groups:
 ```
 # Run bolt with inventory file
 
-    bolt --inventoryfile ./inventory.yml --nodes webservers command run 'hostname && uptime'
+    bolt --inventoryfile ./inventory.yml --nodes webservers command run uptime
 
 # Bounty for Helping Improve Bolt
 
