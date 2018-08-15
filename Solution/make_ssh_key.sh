@@ -5,8 +5,13 @@ then
     /usr/bin/ssh-keygen -C vagrant -N "" -f ./vagrant.key
 fi
 
+echo -n "Enter the server password (press ENTER for default): "
+read -s password
+password="${password:-vagrant}"
+echo
+
 for i in {1..3}; do
-    sshpass -p 'vagrant' \
+    sshpass -p "$password" \
 		ssh-copy-id \
         -o LogLevel=QUIET \
 		-o StrictHostKeyChecking=no \
