@@ -54,7 +54,7 @@ echo
 printf '%.0s#' {1..50}; echo
 echo "## Run bolt with all config in an inventory file"
 set -x
-bolt --inventoryfile ./inventory.yml \
+bolt --inventoryfile Solution/inventory.yml \
      --nodes webservers \
      command run hostnamectl
 set +x
@@ -73,7 +73,7 @@ printf '%.0s#' {1..50}; echo
 echo "## Uninstall Apache and install NGINX"
 set -x
 bolt --run-as root \
-     --inventoryfile ./inventory.yml \
+     --inventoryfile Solution/inventory.yml \
      --nodes webservers \
      script run provision_nginx.sh
 set +x
@@ -92,7 +92,7 @@ printf '%.0s#' {1..50}; echo
 echo "## Upload the NGINX config File"
 set -x
 bolt --run-as root \
-     --inventoryfile ./inventory.yml \
+     --inventoryfile Solution/inventory.yml \
      --nodes webservers \
      file upload nginx.conf /etc/nginx/sites-available/default
 set +x
@@ -103,7 +103,7 @@ printf '%.0s#' {1..50}; echo
 echo "## Reload NGINX to apply the new config"
 set -x
 bolt --run-as root \
-     --inventoryfile ./inventory.yml \
+     --inventoryfile Solution/inventory.yml \
      --nodes webservers \
      command run "systemctl reload nginx"
 set +x
@@ -122,7 +122,7 @@ printf '%.0s#' {1..50}; echo
 echo "## Remove the Apache index file"
 set -x
 bolt --run-as root \
-     --inventoryfile ./inventory.yml \
+     --inventoryfile Solution/inventory.yml \
      --nodes webservers \
      command run "rm -vf /var/www/html/index.html"
 set +x
