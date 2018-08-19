@@ -1,43 +1,138 @@
 #!/bin/bash -xe
-if [ ! -e /usr/local/bin/bolt ];
-then
-    echo "# Installing bolt (requires Ruby Gem to be installed)"
-    which gem || (echo "Couldn't find gem.  Is it installed?" && return 1)
-    gem install bolt
-fi
-
+printf '%.0s#' {1..50}; echo
 echo -n "# Checking bolt installation: "
-which bolt || (echo "Couldn't find bolt! Is it installed?" && return 2)
+which bolt ||
+    (echo "Couldn't find bolt! Is it installed?" && return 1)
 
+printf '%.0s#' {1..50}; echo
 echo -n "# Checking bolt version: "
-bolt --version || (echo "Coudln't find bolt! Is it installed?" && return 3)
+bolt --version ||
+    (echo "Coudln't find bolt! Is it installed?" && return 2)
 
-echo
-echo "# First bolt command; One node"
-echo "# Enter password 'vagrant' (no quotes) when prompted!"
+printf '%.0s#' {1..50}; echo
+echo "## Run bolt on one node with user and password for auth"
 set -x
-bolt --user vagrant --password --nodes 192.168.56.101 --no-host-key-check command run 'hostname && uptime'
+bolt --user vagrant \
+     --password vagrant \
+     --nodes 192.168.56.101 \
+     --no-host-key-check \
+     command run hostnamectl
 set +x
-
+printf '%.0s#' {1..50}; echo
 echo
-echo "# Second bolt command; Multiple nodes"
-echo "# Enter password 'vagrant' (no quotes) when prompted!"
-set -x
-bolt --user vagrant --password --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname && uptime'
-set +x
 
+printf '%.0s#' {1..50}; echo
+echo "## Run bolt on all nodes with user and  password for auth"
+set -x
+bolt --user vagrant \
+     --password vagrant \
+     --nodes 192.168.56.101,192.168.56.102,192.168.56.103 \
+     --no-host-key-check \
+     command run 'hostnamectl'
+set +x
+printf '%.0s#' {1..50}; echo
 echo
-echo "# Creating and inserting a key pair for remaining commands..."
-read -rsn1 -p"Press any key to continue";echo
-source ./make_ssh_key.sh > /dev/null
 
+printf '%.0s#' {1..50}; echo
+echo "## Create SSH keys and inject them into the nodes"
+source Solution/make_ssh_key.sh
+printf '%.0s#' {1..50}; echo
 echo
-echo "# Third bolt command; Run bolt with a key instead of a password"
-set -x
-bolt --private-key ./vagrant.key --user vagrant --nodes 192.168.56.101,192.168.56.102,192.168.56.103 --no-host-key-check command run 'hostname && uptime'
-set +x
 
-echo "# Third bolt command; Run bolt with a key and inventory file"
+printf '%.0s#' {1..50}; echo
+echo "## Run bolt on all nodes using the SSH key for auth"
 set -x
-bolt --inventoryfile ./inventory.yml --nodes targets command run 'hostname && uptime'
+bolt --private-key ./vagrant.key \
+     --user vagrant \
+     --nodes 192.168.56.101,192.168.56.102,192.168.56.103 \
+     --no-host-key-check \
+     command run uptime
 set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Run bolt with all config in an inventory file"
+set -x
+bolt --inventoryfile ./inventory.yml \
+     --nodes webservers \
+     command run hostnamectl
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Check the output of the web server for Apache"
+set -x
+curl -s http://192.168.56.101 | grep "<title>" | grep -i apache
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Uninstall Apache and install NGINX"
+set -x
+bolt --run-as root \
+     --inventoryfile ./inventory.yml \
+     --nodes webservers \
+     script run provision_nginx.sh
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Check the output of the web server for NGINX using HTTPS"
+set -x
+curl -s -L -k https://192.168.56.101 | grep "<title>" | grep -i nginx
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Upload the NGINX config File"
+set -x
+bolt --run-as root \
+     --inventoryfile ./inventory.yml \
+     --nodes webservers \
+     file upload nginx.conf /etc/nginx/sites-available/default
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Reload NGINX to apply the new config"
+set -x
+bolt --run-as root \
+     --inventoryfile ./inventory.yml \
+     --nodes webservers \
+     command run "systemctl reload nginx"
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Check the output of the web server for NGINX using HTTPS"
+set -x
+curl -s -L -k https://192.168.56.101 | grep "<title>" | grep -i nginx
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Remove the Apache index file"
+set -x
+bolt --run-as root \
+     --inventoryfile ./inventory.yml \
+     --nodes webservers \
+     command run "rm -vf /var/www/html/index.html"
+set +x
+printf '%.0s#' {1..50}; echo
+echo
+
+printf '%.0s#' {1..50}; echo
+echo "## Check the output of the web server for NGINX using HTTPS"
+set -x
+curl -s -L -k https://192.168.56.101 | grep "<title>" | grep -i nginx
+set +x
+printf '%.0s#' {1..50}; echo
+echo
